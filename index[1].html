@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programa Salud y Bienestar de los Estudiantes</title>
+    <style>
+        :root {
+            --primary-color: #2c5282;
+            --secondary-color: #4299e1;
+            --accent-color: #63b3ed;
+            --text-color: #2d3748;
+            --light-bg: #f7fafc;
+            --border-color: #e2e8f0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        h2 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 0.5rem;
+            margin-top: 2rem;
+        }
+        
+        h3 {
+            font-size: 1.4rem;
+            color: var(--primary-color);
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        .author {
+            font-size: 1.4rem;
+	    font-style: italic;
+            margin-bottom: 2rem;
+        }
+        
+        .date {
+            color: #CCC;
+            margin-bottom: 2rem;
+        }
+        
+        .section {
+            margin-bottom: 3rem;
+        }
+        
+        .reference {
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .highlight-box {
+            background-color: var(--light-bg);
+            border-left: 4px solid var(--secondary-color);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .stages {
+            margin: 2rem 0;
+        }
+        
+        .stage {
+            background-color: var(--light-bg);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--accent-color);
+        }
+        
+        .stage-header {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        ul {
+            padding-left: 1.5rem;
+        }
+        
+        li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 2rem;
+        }
+        
+        .footer p {
+            margin: 0.5rem 0;
+        }
+        
+        .call-to-action {
+            background-color: var(--secondary-color);
+            color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+        
+        .call-to-action h3 {
+            color: white;
+            margin-top: 0;
+        }
+        
+        .call-to-action p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: white;
+            color: var(--secondary-color);
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            background-color: var(--light-bg);
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+        }
+
+        .key-points {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .key-point {
+            flex: 1;
+            min-width: 250px;
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .key-point h3 {
+            margin-top: 0;
+            color: var(--secondary-color);
+        }
+    </style>
+</head>
+<body>
+    <header>
+	<div><img src="https://afacimera.org.ar/wp-content/uploads/2019/05/Logo_AFACIMERA-movil.png" /></div>
+        <div class="header-content">
+            <h1>Salud y Bienestar de los Estudiantes de Medicina</h1>
+            <p class="author">Lic. Amanda Galli</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <section class="section">
+            <h2>Introducción</h2>
+            <p>La calidad de vida de los estudiantes de medicina es un tema de creciente relevancia en el ámbito académico y sanitario. Estudios recientes han mostrado una prevalencia significativa de problemas de salud entre los estudiantes de medicina de diversos países.</p>
+            
+            <p>Alba Gallegos y col. muestran una mayor prevalencia de depresión, ansiedad e ideación suicida mayor en los estudiantes de medicina que en la población general.</p>
+        </section>
+        
+        <section class="section">
+            <h2>Problemática Actual</h2>
+            <p>Los distintos estudios sobre la salud de los estudiantes de medicina mencionan la automedicación, la adicción a los teléfonos móviles y a internet, sedentarismo y trastornos de la conducta alimentaria como problemas frecuentes. También destacan enfermedades físicas asociadas a la exposición a altos niveles de estrés tales como intestino irritable, hipertensión, sequedad ocular y problemas osteoarticulares entre otros.</p>
+            
+            <p>Según Quek y col., aproximadamente uno de cada tres estudiantes de medicina en el mundo tiene ansiedad, que es una tasa de prevalencia sustancialmente más alta que la de la población general; se necesitan más investigaciones para identificar los factores de riesgo de ansiedad específicos de los estudiantes de medicina.</p>
+            
+            <div class="highlight-box">
+                <p><strong>Según la OMS, en 2021, el suicidio fue la segunda principal causa de muerte entre los jóvenes de 15 a 29 años.</strong></p>
+                <p>En la Argentina, el tema del suicidio adolescente muestra una tendencia creciente verificada en las tasas que surgen de los últimos datos estadísticos disponibles.</p>
+                <p>En 2015 se sancionó la ley 27.130 de Prevención del Suicidio (BO 08/04/2015), que tiene por objeto "la disminución de la incidencia y prevalencia del suicidio, a través de la prevención, asistencia y posvención".</p>
+                <p>"Desde comienzos de la década del 90 hasta hoy, la mortalidad por suicidio en adolescentes se triplicó a nivel nacional, según datos oficiales".</p>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2>Estudios Realizados</h2>
+            <p>La Universidad Nacional de Córdoba realizó en 2023 un estudio sobre la Calidad de Vida de los estudiantes de Medicina utilizando el cuestionario WHOQoL-BREF enviado mediante el sistema Guaraní de la UNC; este cuestionario explora dimensiones tales como: la salud física, la salud psicológica (o mental) y el contexto ambiental (o entorno social), incluyendo las relaciones sociales-interpersonales pero no pregunta sobre las condiciones particulares de la educación médica lo que es reconocido como una limitación del trabajo.</p>
+            
+            <p>En las conclusiones del estudio de la UNC se puntualiza que llama la atención el consumo de alcohol y tabaco y que los mejores puntajes en Calidad de Vida se observan en los estudiantes iniciales (en el primer año de la carrera) y en los que realizan actividad física.</p>
+            
+            <p>Los estudiantes de medicina se enfrentan a mayores exigencias y estrés a medida que avanzan en su carrera y esto puede afectar su calidad de vida y puede interferir en su rendimiento académico. La carrera de medicina se caracteriza por largas horas de estudio y rotaciones clínicas exigentes. Estas demandas académicas dejan poco tiempo para el descanso, el autocuidado y las actividades recreativas, lo que puede repercutir negativamente en el bienestar físico, mental y emocional de los estudiantes.</p>
+        </section>
+        
+        <section class="section">
+            <h2>Programas Exitosos en Otras Universidades</h2>
+            
+            <div class="key-points">
+                <div class="key-point">
+                    <h3>Universidad de Stanford</h3>
+                    <p>"Stanford Resilience Project" desarrolla talleres de resiliencia, sesiones para el manejo del estrés y asesoramiento individualizado.</p>
+                </div>
+                
+                <div class="key-point">
+                    <h3>Universidad Autónoma de México (UNAM)</h3>
+                    <p>Desarrolla un programa de "Bienestar Integral" que combina acceso a asistencia psicológica, actividades de mindfulness y campañas de sensibilización sobre vida saludable.</p>
+                </div>
+                
+                <div class="key-point">
+                    <h3>Universidad de Sídney</h3>
+                    <p>Implementó un sistema de tutorías entre estudiantes que promueve el apoyo entre pares.</p>
+                </div>
+            </div>
+            
+            <p>Estos programas y muchos otros, se focalizan en el desarrollo de la capacidad de <strong>resiliencia</strong>.</p>
+            
+            <div class="highlight-box">
+                <p>"La resiliencia es la capacidad que tiene una persona, grupo o comunidad para afrontar y superar situaciones adversas, difíciles o traumáticas, adaptándose positivamente y, en muchos casos, saliendo fortalecida de estas experiencias. No se trata de evitar las dificultades, sino de enfrentarlas de manera efectiva, utilizando recursos internos, como la fortaleza emocional y la capacidad de resolución de problemas, y externos, como el apoyo social".</p>
+            </div>
+            
+            <p>Desarrollar resiliencia implica fortalecer habilidades tales como la regulación emocional a través de mindfulness, ejercicios de reconocimiento de las emociones propias y ajenas utilizando técnicas como el rol playing, la gestión del estrés, el autocuidado (sueño, alimentación, actividad física) y la capacidad de mantener una actitud positiva frente al fracaso y/o condiciones adversas.</p>
+            
+            <p>El establecimiento de redes de apoyo (actividades grupales que favorezcan la comunicación cara a cara, servicios de salud mental) y la práctica de hábitos saludables (sueño, recreación, actividad física) contribuyen al desarrollo de la resiliencia. La resiliencia no es innata. Las instituciones educativas deberían implementar estrategias y asignar recursos para la promoción del bienestar de los estudiantes, particularmente enfocadas en el fortalecimiento de la resiliencia en el caso de los estudiantes de las carreras de ciencias de la salud.</p>
+            
+            <p>La promoción de estilos de vida saludables, facilitando la actividad física, en los estudiantes de medicina es vital, no sólo por la mejora de su propia salud, sino por haberse demostrado que los profesionales con hábitos saludables aconsejan más frecuentemente a sus pacientes y logran mejores resultados de salud entre éstos.</p>
+        </section>
+        
+        <section class="section">
+            <h2>Propuesta: Investigación Acción</h2>
+            <p>Realizar una investigación acción como estrategia para desarrollar un programa de promoción del estilo de vida saludable y del bienestar de los estudiantes de medicina.</p>
+            
+            <div class="highlight-box">
+                <p>La investigación acción es un enfoque metodológico que combina la investigación científica con la acción social. Su objetivo principal es generar conocimiento a partir de la práctica con el fin de promover el cambio y la mejora en un contexto específico. Este método se basa en la colaboración entre investigadores y participantes de la comunidad, permitiendo que ambos aprendan y reflexionen sobre sus experiencias.</p>
+                
+                <p>El proceso de la investigación acción está estructurado por ciclos y se caracteriza por su flexibilidad, puesto que es válido e incluso necesario realizar ajustes conforme se avanza en el estudio, hasta que se alcanza el cambio o la solución al problema. De acuerdo con Hernández, Fernández y Baptista, los ciclos del proceso son los siguientes:</p>
+                
+                <ol>
+                    <li>Detección y diagnóstico del problema de investigación.</li>
+                    <li>Elaboración del plan para solucionar el problema o introducir el cambio.</li>
+                    <li>Implementación del plan y evaluación de resultados.</li>
+                    <li>Realimentación, la cual conduce a un nuevo diagnóstico y a una nueva espiral de reflexión y acción.</li>
+                </ol>
+                
+                <p>La investigación acción se puede definir como un proceso reflexivo que busca entender y transformar realidades sociales. Se centra en problemas concretos y se basa en la participación de las personas afectadas por esos problemas.</p>
+            </div>
+            
+            <p>El propósito de este estudio es hacer una exploración del nivel de bienestar de los estudiantes de medicina (autopercepción) de modo de obtener información para definir actividades y recursos para la promoción de estilos de vida saludables.</p>
+        </section>
+        
+        <section class="section">
+            <h2>Metodología y Etapas</h2>
+            <p>Participantes: Estudiantes de 1° y de 6° año de la carrera de medicina.</p>
+            
+            <div class="stages">
+                <div class="stage">
+                    <div class="stage-header">Primera etapa</div>
+                    <ul>
+                        <li>Diseño de un cuestionario ad hoc. (preguntas de autopercepción)</li>
+                        <li>Relevamiento del nivel de bienestar que refieren los estudiantes del primer y del último año de la carrera de medicina.</li>
+                        <li>Análisis de los resultados</li>
+                    </ul>
+                </div>
+		<p>❤️ Puede ingresar al <b>instrumento de autopercepción</b> haciendo <a href="https://docs.google.com/forms/d/e/1FAIpQLSc4mzvOFHTxK3brY0ticnf8mgSw5XInIwLzYMKtNmETC0OuAw/viewform?usp=dialog" target="_blank">click aquí</a> 🔗 Externo: Abrirá una nueva ventana</p>
+		                    
+                <div class="stage">
+                    <div class="stage-header">Segunda etapa</div>
+                    <ul>
+                        <li>Programación, en forma colaborativa con las autoridades de la institución, de actividades de promoción del bienestar.</li>
+                        <li>Preparación de las actividades y materiales informativos para la promoción de:
+                            <ul>
+                                <li><strong>Actividad física</strong>: por ejemplo: dentro del edificio: pausas activas entre una clase y otra. En parque o plazas: caminatas en grupo dos veces por semana. Incluir práctica de algún deporte como actividad curricular.</li>
+                                <li><strong>Higiene del sueño</strong>: videos con información sobre importancia del sueño para consolidación de los aprendizajes; sueño y enfermedades.</li>
+                                <li><strong>Alimentación saludable</strong>: información sobre adicción dulce/salado y alimentos ultraprocesados. Videos con entrevistas a expertos.</li>
+                                <li><strong>Socialización</strong>: fortalecer las actividades presenciales, promoción de actividades académicas en pequeños grupos (trabajos colaborativos); tutorías entre pares; limitar el uso de celulares.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="stage">
+                    <div class="stage-header">Tercera etapa</div>
+                    <ul>
+                        <li>Formación y capacitación de tutores, instructores, coordinadores locales en cada facultad.</li>
+                        <li>Implementación de las actividades</li>
+                        <li>Evaluación de resultados</li>
+                    </ul>
+                </div>
+                
+                <div class="stage">
+                    <div class="stage-header">Cuarta etapa</div>
+                    <ul>
+                        <li>Nuevo diagnóstico y ajuste de actividades.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2>Recursos a Desarrollar</h2>
+            <h3>Actividad Física:</h3>
+            <ul>
+                <li>Videos de actividad física</li>
+                <li>Repositorio de documentos, imágenes y/o presentaciones</li>
+            </ul>
+            
+            <h3>Nutrición:</h3>
+            <ul>
+                <li>Videos de nutrición (a cargo de docentes didácticos y entretenidos)</li>
+                <li>Repositorio de documentos, imágenes y/o presentaciones</li>
+            </ul>
+            
+            <h3>Sueño:</h3>
+            <ul>
+                <li>Videos sobre higiene del sueño (a cargo de docentes didácticos)</li>
+                <li>Interacción entre los diferentes contenidos temáticos</li>
+            </ul>
+        </section>
+        
+        <div class="call-to-action">
+            <h3>Súmese a esta Iniciativa para el Bienestar de los Estudiantes de Medicina</h3>
+            <p>Invitamos a todas las Facultades de Medicina de Universidades Públicas y Privadas de la República Argentina a implementar este programa y contribuir al desarrollo de profesionales de la salud más saludables y resilientes.</p>
+            <a href="mailto:amandaelisagalli@gmail.com" class="btn">Solicitar más información</a>
+        </div>
+        
+        <section class="section">
+            <h2>Referencias</h2>
+            <p class="reference">1. Gallegos Royo, Pérez Álvarez, Marco Gómez, Sánchez, Astier Peña et al. Los problemas de salud más prevalentes en los estudiantes de medicina: revisión de la literatura. Educación Médica 2023, 24: 1-11.</p>
+            
+            <p class="reference">2. Dyrbye, L. N., Shanafelt, T. D, Sinsky, C. A. Burnout among health care professionals: A call to explore and address this underrecognized threat to safe, high-quality care. Journal of Patient Safety 2021, 17(8): 1212-1220.</p>
+            
+            <p class="reference">3. Puthran, R., Zhang, M. W., Tam, W. W., & Ho, R. C. (2021). Prevalence of depression amongst medical students: A meta-analysis. International Journal of Environmental Research and Public Health 2021, 18 (8)</p>
+            
+            <p class="reference">4. Quek, T. T. C., Tam, W. W. S., Tran, B. X., Zhang, M., Zhang, Z., & Ho, R. C. M. The global prevalence of anxiety among medical students: A meta-analysis. International Journal of Environmental Research and Public Health 2022, 19 (6).</p>
+            
+            <p class="reference">5. Santiago Romero, Matías Agustín Regis, Elena María Rosa Díaz, Guillermo Einer Allende, Gustavo Alberto Pepe, Carla Andrea Gobbi. Calidad de vida de estudiantes de la Facultad de Medicina de la Universidad Nacional de Córdoba. Revista de la Facultad de Ciencias Médicas de Córdoba 2023, 80 (3): 205-220</p>
+            
+            <p class="reference">6. UNICEF. El suicidio en la adolescencia. Situación en la Argentina. https://www.unicef.org/argentina/informes/el-suicidio-en-la-adolescencia</p>
+            
+            <p class="reference">7. La Nación, 24 de marzo 2025.</p>
+            
+            <p class="reference">8. https://cpree.uw.edu/stanford8-the-stanford-resilience-project/</p>
+            
+            <p class="reference">9. https://gaceta.facmed.unam.mx/index.php/2025/01/08/bienestar-estudiantil-mas-que-una-meta-una-necesidad/</p>
+            
+            <p class="reference">10. https://www.studyaustralia.gov.au/es/life-in-australia/student-support-services/health-and-wellbeing</p>
+            
+            <p class="reference">11. Frank E. Physician health and patient care. JAMA J. Am Med. Assoc. 2004, 291 (5): 637</p>
+            
+            <p class="reference">12. Stringer, E. T. (2014). Action Research. Sage Publications.</p>
+            
+            <p class="reference">13. Hernández, R., Fernández, C., Baptista, P. (2014). Metodología de la investigación. México: Mc Graw Hill Educación.</p>
+        </section>
+    </div>
+    
+    <footer class="footer">
+        <p>© 2025 - Salud y Bienestar de los Estudiantes de Medicina</p>
+        <p class="author">AFACIMERA</p>
+        <p class="date">Marzo 2025</p>
+        <p>Contacto: amandaelisagalli@gmail.com</p>
+    </footer>
+</body>
+</html>
