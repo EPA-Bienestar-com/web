@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EPA Bienestar IA - Manejo Integral del Síndrome CKM</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #ffd543 0%, #fff 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 0;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(255, 213, 67, 0.3);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #7f8c8d;
+            font-weight: 300;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 60px 40px;
+            border-radius: 20px;
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 213, 67, 0.1) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.1) rotate(180deg); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #ffd543;
+            color: #2c3e50;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 213, 67, 0.4);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 213, 67, 0.6);
+            background: #ffda1a;
+        }
+
+        .stages-section {
+            margin: 60px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: #ffd543;
+            border-radius: 2px;
+        }
+
+        .stages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .stage-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border-left: 5px solid #ffd543;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stage-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #ffd543, #ffda1a);
+        }
+
+        .stage-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .stage-number {
+            display: inline-block;
+            background: #ffd543;
+            color: #2c3e50;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+
+        .stage-title {
+            font-size: 1.4rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .stage-description {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .stage-features {
+            list-style: none;
+            padding: 0;
+        }
+
+        .stage-features li {
+            padding: 5px 0;
+            color: #555;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .stage-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #ffd543;
+            font-weight: bold;
+        }
+
+        .features-section {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 60px 40px;
+            border-radius: 20px;
+            margin: 60px 0;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .feature-item {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: #ffd543;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #2c3e50;
+            box-shadow: 0 5px 15px rgba(255, 213, 67, 0.3);
+        }
+
+        .feature-title {
+            font-size: 1.4rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .feature-description {
+            color: #666;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            background: #2c3e50;
+            color: white;
+            border-radius: 20px;
+            margin-top: 60px;
+        }
+
+        .contact-info {
+            background: rgba(255, 213, 67, 0.1);
+            padding: 40px;
+            border-radius: 15px;
+            margin: 40px 0;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .stages-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">EPA Bienestar IA</div>
+            <div class="subtitle">Inteligencia Artificial para la Salud Cardiometabólica</div>
+        </header>
+
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Revolucionando el Manejo del Síndrome CKM</h1>
+                <p>Plataforma integral de IA para el manejo de todas las etapas del Síndrome Cardiovascular-Riñón-Metabólico</p>
+                <a href="#contact" class="cta-button">Solicitar Demo</a>
+            </div>
+        </section>
+
+        <section class="stages-section">
+            <h2 class="section-title">Manejo Integral de las 4 Etapas CKM</h2>
+            <div class="stages-grid">
+                <div class="stage-card">
+                    <div class="stage-number">0</div>
+                    <h3 class="stage-title">Etapa 0: Prevención Primordial</h3>
+                    <p class="stage-description">Preservación de la salud cardiovascular óptima con IA predictiva</p>
+                    <ul class="stage-features">
+                        <li>Análisis de Life's Essential 8</li>
+                        <li>Monitoreo preventivo inteligente</li>
+                        <li>Recomendaciones personalizadas de estilo de vida</li>
+                        <li>Identificación temprana de factores de riesgo</li>
+                    </ul>
+                </div>
+
+                <div class="stage-card">
+                    <div class="stage-number">1</div>
+                    <h3 class="stage-title">Etapa 1: Tejido Adiposo Disfuncional</h3>
+                    <p class="stage-description">Detección y manejo de sobrepeso/obesidad con intervención IA</p>
+                    <ul class="stage-features">
+                        <li>Análisis de composición corporal por IA</li>
+                        <li>Monitoreo de obesidad abdominal</li>
+                        <li>Detección de intolerancia a la glucosa</li>
+                        <li>Planes de nutrición personalizados</li>
+                    </ul>
+                </div>
+
+                <div class="stage-card">
+                    <div class="stage-number">2</div>
+                    <h3 class="stage-title">Etapa 2: Factores de Riesgo Metabólico</h3>
+                    <p class="stage-description">Gestión integral de síndrome metabólico y ERC con algoritmos avanzados</p>
+                    <ul class="stage-features">
+                        <li>Monitoreo continuo de presión arterial</li>
+                        <li>Gestión de diabetes tipo 2 con IA</li>
+                        <li>Seguimiento de función renal</li>
+                        <li>Control de hipertrigliceridemia</li>
+                    </ul>
+                </div>
+
+                <div class="stage-card">
+                    <div class="stage-number">3</div>
+                    <h3 class="stage-title">Etapa 3: Enfermedad Cardiovascular Subclínica</h3>
+                    <p class="stage-description">Detección temprana de ASCVD e insuficiencia cardíaca subclínica</p>
+                    <ul class="stage-features">
+                        <li>Análisis de imágenes cardiovasculares por IA</li>
+                        <li>Calculadoras de riesgo avanzadas</li>
+                        <li>Monitoreo de ERC de alto riesgo</li>
+                        <li>Intervenciones preventivas precisas</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="features-section">
+            <h2 class="section-title">Características Principales</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">🤖</div>
+                    <h3 class="feature-title">IA Clínica Avanzada</h3>
+                    <p class="feature-description">Algoritmos de machine learning para identificación proactiva de pacientes en riesgo y estratificación inteligente</p>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">📊</div>
+                    <h3 class="feature-title">Analytics Poblacional</h3>
+                    <p class="feature-description">Descubrimiento de cohortes detalladas e insights a nivel poblacional para optimizar intervenciones</p>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">🔗</div>
+                    <h3 class="feature-title">Integración EHR Completa</h3>
+                    <p class="feature-description">Compatible con Epic, Cerner y cualquier sistema EHR basado en FHIR para flujos de trabajo optimizados</p>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">📱</div>
+                    <h3 class="feature-title">Monitoreo Remoto</h3>
+                    <p class="feature-description">Incorporación de datos del paciente en tiempo real para atención virtual continua y personalizada</p>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">🎯</div>
+                    <h3 class="feature-title">Recomendaciones Personalizadas</h3>
+                    <p class="feature-description">Guías y tratamientos adaptados a cada etapa CKM basados en evidencia científica y IA predictiva</p>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">⚡</div>
+                    <h3 class="feature-title">Intervención Proactiva</h3>
+                    <p class="feature-description">Identificación temprana de progresión entre etapas CKM para prevenir complicaciones cardiovasculares</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact-info" id="contact">
+            <h2 class="section-title">Transforme su Práctica Cardiometabólica</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 30px; color: #555;">
+                Únase a la revolución de la atención cardiometabólica impulsada por IA. 
+                Mejore los resultados de sus pacientes con manejo integral del Síndrome CKM.
+            </p>
+            <a href="mailto:contacto@epabienestar.ai" class="cta-button">Contactar Ahora</a>
+        </section>
+
+        <footer>
+            <p>&copy; 2025 EPA Bienestar IA. Revolucionando la atención cardiometabólica con inteligencia artificial.</p>
+            <p style="margin-top: 10px; opacity: 0.8;">Basado en las directrices de la American Heart Association para el Síndrome CKM</p>
+        </footer>
+    </div>
+
+    <script>
+        // Animación suave para los botones CTA
+        document.querySelectorAll('.cta-button').forEach(button => {
+            button.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-3px) scale(1.05)';
+            });
+            
+            button.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Animación de aparición para las tarjetas
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Inicializar animaciones
+        document.querySelectorAll('.stage-card, .feature-item').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'all 0.6s ease';
+            observer.observe(card);
+        });
+
+        // Scroll suave para enlaces internos
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
