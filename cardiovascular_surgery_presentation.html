@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cirugía Cardiovascular Argentina - Oportunidades de Optimización</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .presentation-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .slide {
+            min-height: 100vh;
+            padding: 40px;
+            display: none;
+            background: white;
+            margin: 20px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide.active {
+            display: block;
+            animation: slideIn 0.6s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1);
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        h2 {
+            font-size: 2em;
+            color: #34495e;
+            margin-bottom: 25px;
+            border-left: 5px solid #3498db;
+            padding-left: 20px;
+        }
+
+        h3 {
+            font-size: 1.5em;
+            color: #2980b9;
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            color: #7f8c8d;
+            text-align: center;
+            margin-bottom: 40px;
+            font-style: italic;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            transform: translateY(0);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        .stat-number {
+            font-size: 3em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .stat-label {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .opportunity-card {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .savings-highlight {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            padding: 25px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border-left: 5px solid #27ae60;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .slide-counter {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            background: rgba(0,0,0,0.1);
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .bullet-point {
+            margin: 15px 0;
+            padding-left: 25px;
+            position: relative;
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+
+        .bullet-point::before {
+            content: '▶';
+            position: absolute;
+            left: 0;
+            color: #3498db;
+            font-size: 0.8em;
+        }
+
+        .logo-space {
+            text-align: center;
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(0,0,0,0.05);
+            border-radius: 10px;
+            font-style: italic;
+            color: #666;
+        }
+
+        .chart-placeholder {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            height: 300px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin: 30px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .contact-info {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 25px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border-left: 5px solid #e74c3c;
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation-container">
+        
+        <!-- Slide 1: Portada -->
+        <div class="slide active">
+            <div class="slide-counter">1 / 10</div>
+            <h1>Optimización de Cirugía Cardiovascular en Argentina</h1>
+            <div class="subtitle">Reduciendo Costos Hospitalarios a través de la Innovación Digital</div>
+            
+            <div class="logo-space">
+                <h2 style="border: none; color: #667eea; margin-bottom: 10px;">Paciente Quirúrgico Digital</h2>
+                <p>Soluciones tecnológicas para mejores resultados quirúrgicos</p>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">49</div>
+                    <div class="stat-label">Centros Cardioquirúrgicos</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">2,553</div>
+                    <div class="stat-label">Pacientes Estudiados</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">57.4%</div>
+                    <div class="stat-label">Cirugía Coronaria</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Contexto Nacional -->
+        <div class="slide">
+            <div class="slide-counter">2 / 10</div>
+            <h2>Panorama de la Cirugía Cardiovascular en Argentina</h2>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">1,465</div>
+                    <div class="stat-label">Cirugías Coronarias (57.4%)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">359</div>
+                    <div class="stat-label">Reemplazos Valvulares Aórticos (14.1%)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">312</div>
+                    <div class="stat-label">Cirugías Combinadas (12.2%)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">169</div>
+                    <div class="stat-label">Cirugías Valvulares Mitrales (6.6%)</div>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <h3>Registro ARGEN-CCV</h3>
+                <p>Proyecto multicéntrico intersocietario entre la Sociedad Argentina de Cardiología (SAC) y el Colegio Argentino de Cirujanos Cardiovasculares (CACCV), iniciado en abril 2021.</p>
+            </div>
+        </div>
+
+        <!-- Slide 3: Evolución Histórica -->
+        <div class="slide">
+            <div class="slide-counter">3 / 10</div>
+            <h2>Evolución de los Registros Argentinos</h2>
+            
+            <div class="bullet-point"><strong>CONAREC III (1992-1993):</strong> 1,293 pacientes en 41 centros - Bypass aortocoronario</div>
+            <div class="bullet-point"><strong>ESMUCICA (1996-1997):</strong> 2,125 pacientes en 4 instituciones de Buenos Aires</div>
+            <div class="bullet-point"><strong>CONAREC XVI (2007-2008):</strong> 2,553 pacientes en 49 centros a nivel nacional</div>
+            <div class="bullet-point"><strong>ARGEN-CCV (2021+):</strong> Registro actual multicéntrico y prospectivo</div>
+
+            <div class="opportunity-card">
+                <h3>Oportunidad Identificada</h3>
+                <p>La morbimortalidad quirúrgica ha disminuido globalmente en los últimos 10 años, pero existe potencial de mejora significativa en la preparación preoperatoria y seguimiento postoperatorio de pacientes.</p>
+            </div>
+
+            <div class="savings-highlight">
+                <strong>Resultado:</strong> Los registros permiten desarrollar métodos locales de evaluación de riesgo (ArgenSCORE) más precisos que los extrapolados de otros países.
+            </div>
+        </div>
+
+        <!-- Slide 4: El Problema Actual -->
+        <div class="slide">
+            <div class="slide-counter">4 / 10</div>
+            <h2>Desafíos Actuales en Cirugía Cardiovascular</h2>
+            
+            <div class="chart-placeholder">
+                Gráfico: Distribución de Complicaciones Postoperatorias
+            </div>
+
+            <div class="stats-grid">
+                <div class="opportunity-card">
+                    <h3>Preparación Subóptima</h3>
+                    <p>Falta de evaluación integral preoperatoria sistemática y estandarizada entre centros.</p>
+                </div>
+                <div class="opportunity-card">
+                    <h3>Seguimiento Fragmentado</h3>
+                    <p>Ausencia de protocolos digitales unificados para el monitoreo postoperatorio continuo.</p>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <h3>Impacto Económico</h3>
+                <p>Las complicaciones postoperatorias y estancias hospitalarias prolongadas representan costos evitables significativos para el sistema de salud argentino.</p>
+            </div>
+        </div>
+
+        <!-- Slide 5: Análisis de Costos -->
+        <div class="slide">
+            <div class="slide-counter">5 / 10</div>
+            <h2>Análisis de Costos Hospitalarios</h2>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">$450K</div>
+                    <div class="stat-label">Costo Promedio Cirugía Cardiovascular</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">7-12</div>
+                    <div class="stat-label">Días Internación Promedio</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">15-25%</div>
+                    <div class="stat-label">Tasa de Complicaciones</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">$85K</div>
+                    <div class="stat-label">Costo Día Internación UTI</div>
+                </div>
+            </div>
+
+            <div class="savings-highlight">
+                <h3>Potencial de Ahorro</h3>
+                <p><strong>Reducción de 2-3 días de internación por paciente</strong> mediante mejor preparación preoperatoria y seguimiento digital puede generar ahorros de <strong>$170K - $255K por cirugía</strong>.</p>
+            </div>
+
+            <div class="highlight-box">
+                <strong>Proyección anual:</strong> Con 2,500+ cirugías cardiovasculares anuales en Argentina, el ahorro potencial supera los <strong>$425 millones de pesos</strong>.
+            </div>
+        </div>
+
+        <!-- Slide 6: Nuestra Solución -->
+        <div class="slide">
+            <div class="slide-counter">6 / 10</div>
+            <h2>Paciente Quirúrgico Digital: Nuestra Propuesta</h2>
+            
+            <div class="stats-grid">
+                <div class="opportunity-card">
+                    <h3>🏥 Preparación Preoperatoria Digital</h3>
+                    <p>Evaluación integral basada en ArgenSCORE con algoritmos de IA para optimizar la preparación del paciente.</p>
+                </div>
+                <div class="opportunity-card">
+                    <h3>📱 Monitoreo Remoto Continuo</h3>
+                    <p>Plataforma de seguimiento 24/7 con alertas tempranas para prevenir complicaciones.</p>
+                </div>
+                <div class="opportunity-card">
+                    <h3>📊 Analytics Predictivo</h3>
+                    <p>Análisis de datos en tiempo real para optimizar protocolos y reducir estancias hospitalarias.</p>
+                </div>
+                <div class="opportunity-card">
+                    <h3>🔗 Integración Total</h3>
+                    <p>Compatible con sistemas RedCAP existentes y protocolos ARGEN-CCV establecidos.</p>
+                </div>
+            </div>
+
+            <div class="chart-placeholder">
+                Flujo del Proceso: Pre-op → Cirugía → Post-op Digital
+            </div>
+        </div>
+
+        <!-- Slide 7: Beneficios Cuantificables -->
+        <div class="slide">
+            <div class="slide-counter">7 / 10</div>
+            <h2>Beneficios Cuantificables</h2>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">30%</div>
+                    <div class="stat-label">Reducción Complicaciones</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">2.5</div>
+                    <div class="stat-label">Días Menos Internación</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">40%</div>
+                    <div class="stat-label">Menos Reinternaciones</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">95%</div>
+                    <div class="stat-label">Satisfacción Paciente</div>
+                </div>
+            </div>
+
+            <div class="savings-highlight">
+                <h3>ROI Inmediato para Instituciones</h3>
+                <div class="bullet-point">Ahorro promedio: $200,000 pesos por cirugía</div>
+                <div class="bullet-point">Recuperación de inversión: 6-8 meses</div>
+                <div class="bullet-point">Mejora en indicadores de calidad ANMAT</div>
+                <div class="bullet-point">Reducción 60% en costos administrativos de seguimiento</div>
+            </div>
+
+            <div class="highlight-box">
+                <strong>Caso de Éxito:</strong> Estudios internacionales muestran que el monitoreo digital reduce reinternaciones en 35% y costos totales en 25%.
+            </div>
+        </div>
+
+        <!-- Slide 8: Implementación -->
+        <div class="slide">
+            <div class="slide-counter">8 / 10</div>
+            <h2>Plan de Implementación</h2>
+            
+            <div class="opportunity-card">
+                <h3>Fase 1: Piloto (3 centros - 3 meses)</h3>
+                <div class="bullet-point">Implementación en centros líderes del registro ARGEN-CCV</div>
+                <div class="bullet-point">Capacitación de equipos médicos y administrativos</div>
+                <div class="bullet-point">Validación de protocolos digitales</div>
+            </div>
+
+            <div class="opportunity-card">
+                <h3>Fase 2: Expansión (15 centros - 6 meses)</h3>
+                <div class="bullet-point">Escalamiento a centros de alta complejidad</div>
+                <div class="bullet-point">Integración completa con sistemas hospitalarios</div>
+                <div class="bullet-point">Análisis de resultados y optimización</div>
+            </div>
+
+            <div class="opportunity-card">
+                <h3>Fase 3: Nacional (49 centros - 12 meses)</h3>
+                <div class="bullet-point">Despliegue en toda la red ARGEN-CCV</div>
+                <div class="bullet-point">Certificación y acreditación institucional</div>
+                <div class="bullet-point">Reportes agregados para SAC y CACCV</div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Propuesta de Valor -->
+        <div class="slide">
+            <div class="slide-counter">9 / 10</div>
+            <h2>Propuesta de Valor Integral</h2>
+            
+            <div class="chart-placeholder">
+                Comparativa: Proceso Tradicional vs. Digital
+            </div>
+
+            <div class="stats-grid">
+                <div class="savings-highlight">
+                    <h3>Para Instituciones</h3>
+                    <div class="bullet-point">Reducción 25% costos operativos</div>
+                    <div class="bullet-point">Mejora indicadores calidad</div>
+                    <div class="bullet-point">Optimización recursos humanos</div>
+                    <div class="bullet-point">Competitividad en mercado</div>
+                </div>
+                <div class="savings-highlight">
+                    <h3>Para Pacientes</h3>
+                    <div class="bullet-point">Recuperación más rápida</div>
+                    <div class="bullet-point">Menor riesgo complicaciones</div>
+                    <div class="bullet-point">Seguimiento personalizado</div>
+                    <div class="bullet-point">Mayor tranquilidad familiar</div>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <h3>Diferenciador Competitivo</h3>
+                <p>Única solución desarrollada específicamente para el contexto argentino, basada en datos reales del registro ARGEN-CCV y compatible con protocolos nacionales existentes.</p>
+            </div>
+        </div>
+
+        <!-- Slide 10: Llamada a la Acción -->
+        <div class="slide">
+            <div class="slide-counter">10 / 10</div>
+            <h2>¡Es Momento de Actuar!</h2>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">$425M</div>
+                    <div class="stat-label">Ahorro Potencial Anual</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">2,500+</div>
+                    <div class="stat-label">Pacientes Beneficiados</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">49</div>
+                    <div class="stat-label">Centros Objetivo</div>
+                </div>
+            </div>
+
+            <div class="opportunity-card">
+                <h3>Próximos Pasos</h3>
+                <div class="bullet-point">Reunión técnica con equipo médico</div>
+                <div class="bullet-point">Evaluación de compatibilidad sistemas</div>
+                <div class="bullet-point">Propuesta económica personalizada</div>
+                <div class="bullet-point">Plan piloto específico</div>
+            </div>
+
+            <div class="contact-info">
+                <h3>Contacto</h3>
+                <p><strong>Paciente Quirúrgico Digital</strong></p>
+                <p>Transformando la cirugía cardiovascular argentina</p>
+                <p style="margin-top: 15px;">¿Listos para liderar la innovación en su institución?</p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" onclick="previousSlide()">← Anterior</button>
+        <button class="nav-btn" onclick="nextSlide()">Siguiente →</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+        }
+
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+
+        function previousSlide() {
+            showSlide(currentSlide - 1);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                previousSlide();
+            }
+        });
+
+        // Auto-advance slides (optional - remove if not wanted)
+        // setInterval(nextSlide, 15000); // Advance every 15 seconds
+    </script>
+</body>
+</html>
