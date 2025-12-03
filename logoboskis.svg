@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <defs>
+    <style>
+      .pink { fill: #E91E7A; }
+      .red { fill: #C41E3A; }
+    </style>
+  </defs>
+  
+  <!-- Mitad izquierda del corazón (rosa) -->
+  <path class="pink" d="M 100 180 L 100 50 C 85 35 70 25 55 25 C 35 25 20 40 20 65 C 20 95 40 120 60 140 L 100 180 Z"/>
+  
+  <!-- Mitad derecha del corazón (roja) -->
+  <path class="red" d="M 100 50 L 100 180 L 140 140 C 160 120 180 95 180 65 C 180 40 165 25 145 25 C 130 25 115 35 100 50 Z"/>
+  
+  <!-- V blanca izquierda (espacio negativo) -->
+  <path fill="white" d="M 50 70 L 100 120 L 100 150 L 40 90 L 50 70 Z"/>
+  
+  <!-- V blanca derecha (espacio negativo) -->
+  <path fill="white" d="M 100 50 L 150 100 L 160 90 L 100 30 L 100 50 Z"/>
+</svg>
