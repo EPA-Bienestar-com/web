@@ -1,0 +1,264 @@
+From 891a16bc1849e8b31a34e9652a643906b4e756b4 Mon Sep 17 00:00:00 2001
+From: EPA Bienestar <noreply@anthropic.com>
+Date: Wed, 11 Nov 2026 13:16:53 +0000
+Subject: [PATCH] =?UTF-8?q?Footer:=20enlace=20a=20la=20Versi=C3=B3n=202024?=
+ =?UTF-8?q?=20del=20sitio?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Agrega «Versión 2024» junto al copyright del footer, apuntando a /2024/,
+donde queda archivado el sitio anterior.
+
+- build.py: en layout(), así lo heredan las páginas generadas.
+- index.html y programa/residentes/index.html: edición puntual (index
+  tiene su propio footer; residentes está desfasado respecto del
+  generador y regenerarlo cambiaría su analítica).
+- epa.css: el enlace hereda tamaño y color del copyright.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01YbaShAJbLxRXJjMXbAiDWa
+---
+ acerca_de_nosotros.html        | 2 +-
+ assets/css/epa.css             | 2 ++
+ bienestar_con_datos.html       | 2 +-
+ build.py                       | 2 +-
+ condiciones_del_servicio.html  | 2 +-
+ embarazo.html                  | 2 +-
+ engagement.html                | 2 +-
+ enlaces.html                   | 2 +-
+ index.html                     | 2 +-
+ integraciones.html             | 2 +-
+ menopausia.html                | 2 +-
+ modelo_de_atencion.html        | 2 +-
+ politica_de_privacidad.html    | 2 +-
+ por_que_elegirnos.html         | 2 +-
+ prevencion.html                | 2 +-
+ programa/residentes/index.html | 2 +-
+ roadmap.html                   | 2 +-
+ 17 files changed, 18 insertions(+), 16 deletions(-)
+
+diff --git a/acerca_de_nosotros.html b/acerca_de_nosotros.html
+index cdf6173..d915f34 100644
+--- a/acerca_de_nosotros.html
++++ b/acerca_de_nosotros.html
+@@ -265,7 +265,7 @@ document.documentElement.setAttribute("data-theme",t);})();
+     </div>
+ 
+     <div class="ft-bot">
+-      <span class="cr">© 2026 EPA Bienestar IA</span>
++      <span class="cr">© 2026 EPA Bienestar IA · <a href="2024/" title="Sitio anterior de EPA Bienestar, archivado">Versión 2024</a></span>
+       <div class="socials">
+         <a href="https://www.twitter.com/epabienestar" aria-label="Twitter"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.2 2H21l-6.5 7.4L22.2 22h-6l-4.7-6.2L6.1 22H3.3l7-8L2.1 2h6.2l4.3 5.7L18.2 2Zm-1 18h1.7L7.9 3.8H6.1L17.2 20Z"/></svg></a>
+         <a href="https://github.com/EPA-Bienestar-com/" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 8.8 21.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.4 1.1 3 .8.1-.6.3-1.1.6-1.4-2.2-.2-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.7 1a9.4 9.4 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.8-4.6 5 .4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5A10 10 0 0 0 12 2Z"/></svg></a>
+diff --git a/assets/css/epa.css b/assets/css/epa.css
+index 3ae4403..3220aec 100644
+--- a/assets/css/epa.css
++++ b/assets/css/epa.css
+@@ -466,6 +466,8 @@ svg .ax-t { fill: var(--muted); font-family: var(--f-mono); font-size: 9.5px; le
+ 
+ .ft-bot { border-top: 1px solid var(--line-soft); padding-top: 26px; display: flex; flex-wrap: wrap; gap: 20px; align-items: center; justify-content: space-between; }
+ .ft-bot .cr { font-size: .82rem; color: var(--muted); }
++.ft-bot .cr a { font-size: inherit; color: inherit; text-decoration: underline; text-underline-offset: 3px; }
++.ft-bot .cr a:hover { color: var(--teal); }
+ .socials { display: flex; gap: 8px; }
+ .socials a { width: 34px; height: 34px; border: 1px solid var(--line); border-radius: 50%; display: grid; place-items: center; color: var(--muted); transition: all .15s; }
+ .socials a:hover { border-color: var(--teal); color: var(--teal); }
+diff --git a/bienestar_con_datos.html b/bienestar_con_datos.html
+index e605b64..237dc31 100644
+--- a/bienestar_con_datos.html
++++ b/bienestar_con_datos.html
+@@ -277,7 +277,7 @@ document.documentElement.setAttribute("data-theme",t);})();
+     </div>
+ 
+     <div class="ft-bot">
+-      <span class="cr">© 2026 EPA Bienestar IA</span>
++      <span class="cr">© 2026 EPA Bienestar IA · <a href="2024/" title="Sitio anterior de EPA Bienestar, archivado">Versión 2024</a></span>
+       <div class="socials">
+         <a href="https://www.twitter.com/epabienestar" aria-label="Twitter"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.2 2H21l-6.5 7.4L22.2 22h-6l-4.7-6.2L6.1 22H3.3l7-8L2.1 2h6.2l4.3 5.7L18.2 2Zm-1 18h1.7L7.9 3.8H6.1L17.2 20Z"/></svg></a>
+         <a href="https://github.com/EPA-Bienestar-com/" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 8.8 21.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.4 1.1 3 .8.1-.6.3-1.1.6-1.4-2.2-.2-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.7 1a9.4 9.4 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.8-4.6 5 .4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5A10 10 0 0 0 12 2Z"/></svg></a>
+diff --git a/build.py b/build.py
+index 9f7a0a9..4762d44 100644
+--- a/build.py
++++ b/build.py
+@@ -162,7 +162,7 @@ document.documentElement.setAttribute("data-theme",t);}})();
+     </div>
+ 
+     <div class="ft-bot">
+-      <span class="cr">© 2026 EPA Bienestar IA</span>
++      <span class="cr">© 2026 EPA Bienestar IA · <a href="{up}2024/" title="Sitio anterior de EPA Bienestar, archivado">Versión 2024</a></span>
+       <div class="socials">
+         <a href="https://www.twitter.com/epabienestar" aria-label="Twitter"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.2 2H21l-6.5 7.4L22.2 22h-6l-4.7-6.2L6.1 22H3.3l7-8L2.1 2h6.2l4.3 5.7L18.2 2Zm-1 18h1.7L7.9 3.8H6.1L17.2 20Z"/></svg></a>
+         <a href="https://github.com/EPA-Bienestar-com/" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 8.8 21.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.4 1.1 3 .8.1-.6.3-1.1.6-1.4-2.2-.2-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.7 1a9.4 9.4 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.8-4.6 5 .4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5A10 10 0 0 0 12 2Z"/></svg></a>
+diff --git a/condiciones_del_servicio.html b/condiciones_del_servicio.html
+index 854036c..c3b3d49 100644
+--- a/condiciones_del_servicio.html
++++ b/condiciones_del_servicio.html
+@@ -240,7 +240,7 @@ document.documentElement.setAttribute("data-theme",t);})();
+     </div>
+ 
+     <div class="ft-bot">
+-      <span class="cr">© 2026 EPA Bienestar IA</span>
++      <span class="cr">© 2026 EPA Bienestar IA · <a href="2024/" title="Sitio anterior de EPA Bienestar, archivado">Versión 2024</a></span>
+       <div class="socials">
+         <a href="https://www.twitter.com/epabienestar" aria-label="Twitter"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.2 2H21l-6.5 7.4L22.2 22h-6l-4.7-6.2L6.1 22H3.3l7-8L2.1 2h6.2l4.3 5.7L18.2 2Zm-1 18h1.7L7.9 3.8H6.1L17.2 20Z"/></svg></a>
+         <a href="https://github.com/EPA-Bienestar-com/" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 8.8 21.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.4 1.1 3 .8.1-.6.3-1.1.6-1.4-2.2-.2-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.7 1a9.4 9.4 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.8-4.6 5 .4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5A10 10 0 0 0 12 2Z"/></svg></a>
+diff --git a/embarazo.html b/embarazo.html
+index 4c8be38..89e17ee 100644
+--- a/embarazo.html
++++ b/embarazo.html
+@@ -470,7 +470,7 @@ document.documentElement.setAttribute("data-theme",t);})();
+     </div>
+ 
+     <div class="ft-bot">
+-      <span class="cr">© 2026 EPA Bienestar IA</span>
++      <span class="cr">© 2026 EPA Bienestar IA · <a href="2024/" title="Sitio anterior de EPA Bienestar, archivado">Versión 2024</a></span>
+       <div class="socials">
+         <a href="https://www.twitter.com/epabienestar" aria-label="Twitter"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.2 2H21l-6.5 7.4L22.2 22h-6l-4.7-6.2L6.1 22H3.3l7-8L2.1 2h6.2l4.3 5.7L18.2 2Zm-1 18h1.7L7.9 3.8H6.1L17.2 20Z"/></svg></a>
+         <a href="https://github.com/EPA-Bienestar-com/" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 8.8 21.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.4 1.1 3 .8.1-.6.3-1.1.6-1.4-2.2-.2-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.7 1a9.4 9.4 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.8-4.6 5 .4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5A10 10 0 0 0 12 2Z"/></svg></a>
+diff --git a/engagement.html b/engagement.html
+index aa6bab9..655afca 100644
+--- a/engagement.html
++++ b/engagement.html
+@@ -196,7 +196,7 @@ document.documentElement.setAttribute("data-theme",t);})();
+     </div>
+ 
+     <div class="ft-bot">
+-      <span class="cr">© 2026 EPA Bienestar IA</span>
++      <span class="cr">© 2026 EPA Bienestar IA · <a href="2024/" title="Sitio anterior de EPA Bienestar, archivado">Versión 2024</a></span>
+       <div class="socials">
+         <a href="https://www.twitter.com/epabienestar" aria-label="Twitter"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.2 2H21l-6.5 7.4L22.2 22h-6l-4.7-6.2L6.1 22H3.3l7-8L2.1 2h6.2l4.3 5.7L18.2 2Zm-1 18h1.7L7.9 3.8H6.1L17.2 20Z"/></svg></a>
+         <a href="https://github.com/EPA-Bienestar-com/" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 8.8 21.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.4 1.1 3 .8.1-.6.3-1.1.6-1.4-2.2-.2-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.7 1a9.4 9.4 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.8-4.6 5 .4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5A10 10 0 0 0 12 2Z"/></svg></a>
+diff --git a/enlaces.html b/enlaces.html
+index c7d9b22..c56bf2f 100644
+--- a/enlaces.html
++++ b/enlaces.html
+@@ -180,7 +180,7 @@ document.documentElement.setAttribute("data-theme",t);})();
+     </div>
+ 
+     <div class="ft-bot">
+-      <span class="cr">© 2026 EPA Bienestar IA</span>
++      <span class="cr">© 2026 EPA Bienestar IA · <a href="2024/" title="Sitio anterior de EPA Bienestar, archivado">Versión 2024</a></span>
+       <div class="socials">
+         <a href="https://www.twitter.com/epabienestar" aria-label="Twitter"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.2 2H21l-6.5 7.4L22.2 22h-6l-4.7-6.2L6.1 22H3.3l7-8L2.1 2h6.2l4.3 5.7L18.2 2Zm-1 18h1.7L7.9 3.8H6.1L17.2 20Z"/></svg></a>
+         <a href="https://github.com/EPA-Bienestar-com/" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 8.8 21.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.4 1.1 3 .8.1-.6.3-1.1.6-1.4-2.2-.2-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.7 1a9.4 9.4 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.8-4.6 5 .4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5A10 10 0 0 0 12 2Z"/></svg></a>
+diff --git a/index.html b/index.html
+index c6958c7..c921c9f 100644
+--- a/index.html
++++ b/index.html
+@@ -584,7 +584,7 @@ document.documentElement.setAttribute("data-theme",t);})();
+     </div>
+ 
+     <div class="ft-bot">
+-      <span class="cr">© 2026 EPA Bienestar IA</span>
++      <span class="cr">© 2026 EPA Bienestar IA · <a href="2024/" title="Sitio anterior de EPA Bienestar, archivado">Versión 2024</a></span>
+       <div class="socials">
+         <a href="https://www.twitter.com/epabienestar" aria-label="Twitter"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.2 2H21l-6.5 7.4L22.2 22h-6l-4.7-6.2L6.1 22H3.3l7-8L2.1 2h6.2l4.3 5.7L18.2 2Zm-1 18h1.7L7.9 3.8H6.1L17.2 20Z"/></svg></a>
+         <a href="https://github.com/EPA-Bienestar-com/" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 8.8 21.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.4 1.1 3 .8.1-.6.3-1.1.6-1.4-2.2-.2-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.7 1a9.4 9.4 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.8-4.6 5 .4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5A10 10 0 0 0 12 2Z"/></svg></a>
+diff --git a/integraciones.html b/integraciones.html
+index 740b0ed..3d4989b 100644
+--- a/integraciones.html
++++ b/integraciones.html
+@@ -207,7 +207,7 @@ document.documentElement.setAttribute("data-theme",t);})();
+     </div>
+ 
+     <div class="ft-bot">
+-      <span class="cr">© 2026 EPA Bienestar IA</span>
++      <span class="cr">© 2026 EPA Bienestar IA · <a href="2024/" title="Sitio anterior de EPA Bienestar, archivado">Versión 2024</a></span>
+       <div class="socials">
+         <a href="https://www.twitter.com/epabienestar" aria-label="Twitter"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.2 2H21l-6.5 7.4L22.2 22h-6l-4.7-6.2L6.1 22H3.3l7-8L2.1 2h6.2l4.3 5.7L18.2 2Zm-1 18h1.7L7.9 3.8H6.1L17.2 20Z"/></svg></a>
+         <a href="https://github.com/EPA-Bienestar-com/" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 8.8 21.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.4 1.1 3 .8.1-.6.3-1.1.6-1.4-2.2-.2-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.7 1a9.4 9.4 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.8-4.6 5 .4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5A10 10 0 0 0 12 2Z"/></svg></a>
+diff --git a/menopausia.html b/menopausia.html
+index 92ca98e..7607ad8 100644
+--- a/menopausia.html
++++ b/menopausia.html
+@@ -408,7 +408,7 @@ document.documentElement.setAttribute("data-theme",t);})();
+     </div>
+ 
+     <div class="ft-bot">
+-      <span class="cr">© 2026 EPA Bienestar IA</span>
++      <span class="cr">© 2026 EPA Bienestar IA · <a href="2024/" title="Sitio anterior de EPA Bienestar, archivado">Versión 2024</a></span>
+       <div class="socials">
+         <a href="https://www.twitter.com/epabienestar" aria-label="Twitter"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.2 2H21l-6.5 7.4L22.2 22h-6l-4.7-6.2L6.1 22H3.3l7-8L2.1 2h6.2l4.3 5.7L18.2 2Zm-1 18h1.7L7.9 3.8H6.1L17.2 20Z"/></svg></a>
+         <a href="https://github.com/EPA-Bienestar-com/" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 8.8 21.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.4 1.1 3 .8.1-.6.3-1.1.6-1.4-2.2-.2-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.7 1a9.4 9.4 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.8-4.6 5 .4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5A10 10 0 0 0 12 2Z"/></svg></a>
+diff --git a/modelo_de_atencion.html b/modelo_de_atencion.html
+index bb27bf2..995b342 100644
+--- a/modelo_de_atencion.html
++++ b/modelo_de_atencion.html
+@@ -207,7 +207,7 @@ document.documentElement.setAttribute("data-theme",t);})();
+     </div>
+ 
+     <div class="ft-bot">
+-      <span class="cr">© 2026 EPA Bienestar IA</span>
++      <span class="cr">© 2026 EPA Bienestar IA · <a href="2024/" title="Sitio anterior de EPA Bienestar, archivado">Versión 2024</a></span>
+       <div class="socials">
+         <a href="https://www.twitter.com/epabienestar" aria-label="Twitter"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.2 2H21l-6.5 7.4L22.2 22h-6l-4.7-6.2L6.1 22H3.3l7-8L2.1 2h6.2l4.3 5.7L18.2 2Zm-1 18h1.7L7.9 3.8H6.1L17.2 20Z"/></svg></a>
+         <a href="https://github.com/EPA-Bienestar-com/" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 8.8 21.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.4 1.1 3 .8.1-.6.3-1.1.6-1.4-2.2-.2-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.7 1a9.4 9.4 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.8-4.6 5 .4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5A10 10 0 0 0 12 2Z"/></svg></a>
+diff --git a/politica_de_privacidad.html b/politica_de_privacidad.html
+index 574d8c2..2af2a30 100644
+--- a/politica_de_privacidad.html
++++ b/politica_de_privacidad.html
+@@ -269,7 +269,7 @@ document.documentElement.setAttribute("data-theme",t);})();
+     </div>
+ 
+     <div class="ft-bot">
+-      <span class="cr">© 2026 EPA Bienestar IA</span>
++      <span class="cr">© 2026 EPA Bienestar IA · <a href="2024/" title="Sitio anterior de EPA Bienestar, archivado">Versión 2024</a></span>
+       <div class="socials">
+         <a href="https://www.twitter.com/epabienestar" aria-label="Twitter"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.2 2H21l-6.5 7.4L22.2 22h-6l-4.7-6.2L6.1 22H3.3l7-8L2.1 2h6.2l4.3 5.7L18.2 2Zm-1 18h1.7L7.9 3.8H6.1L17.2 20Z"/></svg></a>
+         <a href="https://github.com/EPA-Bienestar-com/" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 8.8 21.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.4 1.1 3 .8.1-.6.3-1.1.6-1.4-2.2-.2-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.7 1a9.4 9.4 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.8-4.6 5 .4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5A10 10 0 0 0 12 2Z"/></svg></a>
+diff --git a/por_que_elegirnos.html b/por_que_elegirnos.html
+index af08ae8..d30f152 100644
+--- a/por_que_elegirnos.html
++++ b/por_que_elegirnos.html
+@@ -208,7 +208,7 @@ document.documentElement.setAttribute("data-theme",t);})();
+     </div>
+ 
+     <div class="ft-bot">
+-      <span class="cr">© 2026 EPA Bienestar IA</span>
++      <span class="cr">© 2026 EPA Bienestar IA · <a href="2024/" title="Sitio anterior de EPA Bienestar, archivado">Versión 2024</a></span>
+       <div class="socials">
+         <a href="https://www.twitter.com/epabienestar" aria-label="Twitter"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.2 2H21l-6.5 7.4L22.2 22h-6l-4.7-6.2L6.1 22H3.3l7-8L2.1 2h6.2l4.3 5.7L18.2 2Zm-1 18h1.7L7.9 3.8H6.1L17.2 20Z"/></svg></a>
+         <a href="https://github.com/EPA-Bienestar-com/" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 8.8 21.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.4 1.1 3 .8.1-.6.3-1.1.6-1.4-2.2-.2-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.7 1a9.4 9.4 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.8-4.6 5 .4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5A10 10 0 0 0 12 2Z"/></svg></a>
+diff --git a/prevencion.html b/prevencion.html
+index 177fb69..44d8d2e 100644
+--- a/prevencion.html
++++ b/prevencion.html
+@@ -215,7 +215,7 @@ document.documentElement.setAttribute("data-theme",t);})();
+     </div>
+ 
+     <div class="ft-bot">
+-      <span class="cr">© 2026 EPA Bienestar IA</span>
++      <span class="cr">© 2026 EPA Bienestar IA · <a href="2024/" title="Sitio anterior de EPA Bienestar, archivado">Versión 2024</a></span>
+       <div class="socials">
+         <a href="https://www.twitter.com/epabienestar" aria-label="Twitter"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.2 2H21l-6.5 7.4L22.2 22h-6l-4.7-6.2L6.1 22H3.3l7-8L2.1 2h6.2l4.3 5.7L18.2 2Zm-1 18h1.7L7.9 3.8H6.1L17.2 20Z"/></svg></a>
+         <a href="https://github.com/EPA-Bienestar-com/" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 8.8 21.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.4 1.1 3 .8.1-.6.3-1.1.6-1.4-2.2-.2-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.7 1a9.4 9.4 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.8-4.6 5 .4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5A10 10 0 0 0 12 2Z"/></svg></a>
+diff --git a/programa/residentes/index.html b/programa/residentes/index.html
+index 3cfac1b..e6115fc 100644
+--- a/programa/residentes/index.html
++++ b/programa/residentes/index.html
+@@ -192,7 +192,7 @@ document.documentElement.setAttribute("data-theme",t);})();
+     </div>
+ 
+     <div class="ft-bot">
+-      <span class="cr">© 2026 EPA Bienestar IA</span>
++      <span class="cr">© 2026 EPA Bienestar IA · <a href="../../2024/" title="Sitio anterior de EPA Bienestar, archivado">Versión 2024</a></span>
+       <div class="socials">
+         <a href="https://www.twitter.com/epabienestar" aria-label="Twitter"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.2 2H21l-6.5 7.4L22.2 22h-6l-4.7-6.2L6.1 22H3.3l7-8L2.1 2h6.2l4.3 5.7L18.2 2Zm-1 18h1.7L7.9 3.8H6.1L17.2 20Z"/></svg></a>
+         <a href="https://github.com/EPA-Bienestar-com/" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 8.8 21.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.4 1.1 3 .8.1-.6.3-1.1.6-1.4-2.2-.2-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.7 1a9.4 9.4 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.8-4.6 5 .4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5A10 10 0 0 0 12 2Z"/></svg></a>
+diff --git a/roadmap.html b/roadmap.html
+index a521384..2baf638 100644
+--- a/roadmap.html
++++ b/roadmap.html
+@@ -209,7 +209,7 @@ document.documentElement.setAttribute("data-theme",t);})();
+     </div>
+ 
+     <div class="ft-bot">
+-      <span class="cr">© 2026 EPA Bienestar IA</span>
++      <span class="cr">© 2026 EPA Bienestar IA · <a href="2024/" title="Sitio anterior de EPA Bienestar, archivado">Versión 2024</a></span>
+       <div class="socials">
+         <a href="https://www.twitter.com/epabienestar" aria-label="Twitter"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.2 2H21l-6.5 7.4L22.2 22h-6l-4.7-6.2L6.1 22H3.3l7-8L2.1 2h6.2l4.3 5.7L18.2 2Zm-1 18h1.7L7.9 3.8H6.1L17.2 20Z"/></svg></a>
+         <a href="https://github.com/EPA-Bienestar-com/" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 8.8 21.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.4 1.1 3 .8.1-.6.3-1.1.6-1.4-2.2-.2-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.7 1a9.4 9.4 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.8-4.6 5 .4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5A10 10 0 0 0 12 2Z"/></svg></a>
+-- 
+2.43.0
+
