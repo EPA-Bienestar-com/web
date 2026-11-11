@@ -1,0 +1,274 @@
+From 6defe9d170b7ba749857c199a4d84689a17d45d1 Mon Sep 17 00:00:00 2001
+From: EPA Bienestar <noreply@anthropic.com>
+Date: Wed, 11 Nov 2026 13:35:20 +0000
+Subject: [PATCH 2/2] Agregar assets/js/epa-analytics.js (GA4 + Consent Mode
+ v2)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Las 14 páginas cargan gtag.js pero el gtag('config') vivía en este
+archivo, que no estaba en el repo: sin él GA4 no registra nada.
+
+Implementa MEDICION.md:
+- Consent Mode v2: publicidad denegada siempre; analítica concedida por
+  defecto con aviso para desactivarla (ANALYTICS_DEFAULT, para CCPA).
+  Quien la desactiva no envía nada (ga-disable).
+- page_slug / page_group en todos los eventos.
+- epa_src / epa_cta (no utm_*) en los enlaces a info.epa-bienestar.com.ar.
+- Eventos: cta_click, salida_evaluacion, profundidad_lectura,
+  faq_abierta, reconocimiento_usado (una vez, sin contenido), cambio_tema.
+- SEND_SYMPTOM_COUNT = false: ningún dato de salud sale hacia GA4.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01YbaShAJbLxRXJjMXbAiDWa
+---
+ assets/js/epa-analytics.js | 236 +++++++++++++++++++++++++++++++++++++
+ 1 file changed, 236 insertions(+)
+ create mode 100644 assets/js/epa-analytics.js
+
+diff --git a/assets/js/epa-analytics.js b/assets/js/epa-analytics.js
+new file mode 100644
+index 0000000..a291f4e
+--- /dev/null
++++ b/assets/js/epa-analytics.js
+@@ -0,0 +1,236 @@
++/* EPA Bienestar IA — analítica del sitio (GA4 + Consent Mode v2).
++   Plan completo en MEDICION.md. Cargar SIN defer y ANTES de gtag.js:
++
++     <script src="assets/js/epa-analytics.js"></script>
++     <script async src="https://www.googletagmanager.com/gtag/js?id=G-5J3NZ57F9D"></script>
++
++   Regla que no se negocia: NINGÚN DATO DE SALUD SALE HACIA GA4. No se envía
++   qué síntomas marcó una persona, ni cuántos, ni nada de lo que se pueda
++   inferir su estado clínico (Ley 25.326, art. 2). */
++(function () {
++  "use strict";
++
++  var GA_ID = "G-5J3NZ57F9D";
++
++  /* Dejar en false. Aunque fuera un número agregado, queda vinculado al
++     client_id de GA4 y pasa a ser un dato de salud de una persona
++     identificable. Ver MEDICION.md, «Regla que no se negocia». */
++  var SEND_SYMPTOM_COUNT = false;
++
++  /* Analítica concedida por defecto, con aviso visible para desactivarla
++     (proporcionado bajo Ley 25.326 para analítica pseudónima declarada).
++     CALIFORNIA (CCPA/CPRA): antes de publicar en ese mercado, cambiar a
++     "denied" y pedir opt-in explícito. Es esta línea. */
++  var ANALYTICS_DEFAULT = "granted";
++
++  var PREF_KEY = "epa-analytics";        // "granted" | "denied"
++  var INFO_HOST = "info.epa-bienestar.com.ar";
++
++  /* ── Preferencia guardada ───────────────────────────────────────────── */
++  function readPref() {
++    try { return localStorage.getItem(PREF_KEY); } catch (e) { return null; }
++  }
++  function writePref(v) {
++    try { localStorage.setItem(PREF_KEY, v); } catch (e) {}
++  }
++  var pref = readPref();
++  var analytics = pref === "granted" || pref === "denied" ? pref : ANALYTICS_DEFAULT;
++
++  /* ── gtag + Consent Mode v2 ─────────────────────────────────────────── */
++  window.dataLayer = window.dataLayer || [];
++  function gtag() { window.dataLayer.push(arguments); }
++  window.gtag = window.gtag || gtag;
++
++  // Publicidad denegada SIEMPRE: EPA no hace remarketing. El código lo hace
++  // cumplir, no solo la política de privacidad.
++  gtag("consent", "default", {
++    ad_storage: "denied",
++    ad_user_data: "denied",
++    ad_personalization: "denied",
++    analytics_storage: analytics,
++    functionality_storage: "granted",
++    security_storage: "granted"
++  });
++  // Quien desactivó la analítica no envía nada, ni siquiera pings sin cookies.
++  window["ga-disable-" + GA_ID] = analytics === "denied";
++
++  /* ── Página: slug y grupo (van en todos los eventos) ────────────────── */
++  var path = location.pathname.replace(/\/index\.html$/, "/").replace(/\.html$/, "");
++  var slug = path.replace(/^\/+|\/+$/g, "") || "index";
++  var GROUPS = {
++    index: "home",
++    embarazo: "landing_b",
++    menopausia: "landing_c",
++    politica_de_privacidad: "legal",
++    condiciones_del_servicio: "legal"
++  };
++  var group = GROUPS[slug] || "institucional";
++
++  gtag("js", new Date());
++  gtag("set", { page_slug: slug, page_group: group });
++  gtag("config", GA_ID, {
++    anonymize_ip: true,
++    allow_google_signals: false,
++    allow_ad_personalization_signals: false,
++    linker: {
++      domains: ["epa-bienestar.com.ar", "www.epa-bienestar.com.ar",
++                "info.epa-bienestar.com.ar", "mujer.epa-bienestar.com.ar"],
++      decorate_forms: true
++    }
++  });
++
++  function track(name, params) {
++    if (analytics !== "granted") return;
++    gtag("event", name, params || {});
++  }
++
++  function text(el, max) {
++    return (el.textContent || "").replace(/\s+/g, " ").trim().slice(0, max || 100);
++  }
++
++  /* ── Enlaces a info.: epa_src / epa_cta (NO utm_*) ──────────────────
++     Un utm_* entre subdominios propios corta la sesión de GA4 y pisa la
++     fuente de adquisición real. La página de destino lee estos dos
++     parámetros y los reenvía como parámetros de evento. */
++  function decorate(a) {
++    var u;
++    try { u = new URL(a.href, location.href); } catch (e) { return; }
++    if (u.hostname !== INFO_HOST) return;
++    u.searchParams.set("epa_src", slug);
++    u.searchParams.set("epa_cta", a.getAttribute("data-cta") || "enlace");
++    a.href = u.toString();
++  }
++
++  /* ── Destino de un llamado a la acción ──────────────────────────────── */
++  function destination(a) {
++    var h = a.href || "";
++    if (h.indexOf(INFO_HOST) !== -1 && /evaluacion|donde-hacerlo|turnos/.test(h)) return "evaluacion";
++    if (/wa\.me|whatsapp/.test(h)) return "whatsapp";
++    if (/calendly\.com/.test(h)) return "demo";
++    if (/docs\.google\.com\/forms|forms\.gle/.test(h)) return "formulario";
++    return null;
++  }
++
++  function ctaId(a, dest) {
++    if (a.getAttribute("data-cta")) return a.getAttribute("data-cta");
++    if (a.classList.contains("wa")) return "whatsapp-flotante";
++    return dest;
++  }
++
++  /* ── Instrumentación (el script carga al final del <body>) ──────────── */
++  function init() {
++    Array.prototype.forEach.call(document.querySelectorAll("a[href]"), decorate);
++
++    // Clics en llamados a la acción
++    document.addEventListener("click", function (e) {
++      var a = e.target.closest ? e.target.closest("a[href]") : null;
++      if (!a) return;
++      var dest = destination(a);
++      if (!dest && !a.hasAttribute("data-cta")) return;
++      var p = {
++        cta_id: ctaId(a, dest),
++        cta_text: text(a) || (a.getAttribute("aria-label") || "").slice(0, 100),
++        cta_destination: dest || "otro"
++      };
++      track("cta_click", p);
++      if (dest === "evaluacion") track("salida_evaluacion", p);
++    }, true);
++
++    // Profundidad de lectura: 25 / 50 / 75 / 90 %, una vez cada uno
++    var marks = [25, 50, 75, 90], sent = {}, ticking = false;
++    function depth() {
++      ticking = false;
++      var doc = document.documentElement;
++      var max = doc.scrollHeight - window.innerHeight;
++      var pct = max > 0 ? (window.scrollY / max) * 100 : 100;
++      marks.forEach(function (m) {
++        if (pct >= m && !sent[m]) { sent[m] = true; track("profundidad_lectura", { percent: m }); }
++      });
++    }
++    window.addEventListener("scroll", function () {
++      if (!ticking) { ticking = true; requestAnimationFrame(depth); }
++    }, { passive: true });
++
++    // Preguntas frecuentes (<details>): solo el texto de la pregunta, que es del sitio
++    Array.prototype.forEach.call(document.querySelectorAll("details"), function (d) {
++      d.addEventListener("toggle", function () {
++        var s = d.querySelector("summary");
++        if (d.open && s) track("faq_abierta", { faq_pregunta: text(s) });
++      });
++    });
++
++    // Bloque de reconocimiento (Grupo C): un evento, una sola vez, SIN contenido
++    var recog = document.getElementById("recog");
++    if (recog) {
++      var usado = false;
++      recog.addEventListener("change", function () {
++        if (usado) return;
++        usado = true;
++        var p = {};
++        if (SEND_SYMPTOM_COUNT) {   // no activar: ver arriba
++          p.seleccionados = recog.querySelectorAll("input:checked").length;
++        }
++        track("reconocimiento_usado", p);
++      });
++    }
++
++    // Cambio de tema: epa.js (defer) cambia data-theme después de este listener
++    var tgl = document.getElementById("tgl");
++    if (tgl) {
++      tgl.addEventListener("click", function () {
++        setTimeout(function () {
++          track("cambio_tema", { tema: document.documentElement.getAttribute("data-theme") });
++        }, 0);
++      });
++    }
++
++    // Cualquier elemento con data-analytics-prefs reabre el aviso
++    document.addEventListener("click", function (e) {
++      var t = e.target.closest ? e.target.closest("[data-analytics-prefs]") : null;
++      if (t) { e.preventDefault(); showBanner(true); }
++    });
++
++    if (!pref) showBanner(false);
++  }
++
++  /* ── Aviso de analítica (primera visita) ────────────────────────────── */
++  function setAnalytics(v) {
++    analytics = v;
++    writePref(v);
++    window["ga-disable-" + GA_ID] = v === "denied";
++    gtag("consent", "update", { analytics_storage: v });
++  }
++
++  function showBanner(force) {
++    if (document.getElementById("epa-cb")) return;
++    var css = document.createElement("style");
++    css.textContent =
++      "#epa-cb{position:fixed;left:16px;right:88px;bottom:16px;z-index:95;max-width:620px;" +
++      "background:var(--surface,#fff);color:var(--ink-2,#333);border:1px solid var(--line,#ddd);" +
++      "border-radius:14px;box-shadow:0 10px 32px rgba(0,0,0,.14);padding:14px 16px;font-size:.86rem;" +
++      "line-height:1.55;display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center}" +
++      "#epa-cb p{margin:0;flex:1 1 280px}#epa-cb a{color:inherit;text-underline-offset:3px}" +
++      "#epa-cb .b{display:flex;gap:8px;flex:none}" +
++      "#epa-cb button{font:inherit;font-size:.82rem;font-weight:600;border-radius:999px;padding:7px 14px;" +
++      "cursor:pointer;border:1px solid var(--line,#ccc);background:transparent;color:inherit}" +
++      "#epa-cb button.ok{background:var(--teal,#0f5257);border-color:var(--teal,#0f5257);color:#fff}" +
++      "@media (max-width:560px){#epa-cb{right:16px;bottom:84px}}";
++    var box = document.createElement("div");
++    box.id = "epa-cb";
++    box.setAttribute("role", "region");
++    box.setAttribute("aria-label", "Aviso de analítica");
++    box.innerHTML =
++      "<p>Usamos Google Analytics para saber qué contenidos sirven. Sin publicidad y " +
++      "<strong>sin datos de salud</strong>. <a href=\"/politica_de_privacidad.html#cookies\">Más info</a></p>" +
++      "<div class=\"b\"><button type=\"button\" class=\"no\">Desactivar</button>" +
++      "<button type=\"button\" class=\"ok\">" + (force && analytics === "denied" ? "Activar" : "Entendido") + "</button></div>";
++    box.querySelector(".no").addEventListener("click", function () { setAnalytics("denied"); close(); });
++    box.querySelector(".ok").addEventListener("click", function () { setAnalytics("granted"); close(); });
++    function close() { box.remove(); css.remove(); }
++    document.head.appendChild(css);
++    document.body.appendChild(box);
++  }
++
++  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
++  else init();
++})();
+-- 
+2.43.0
+

@@ -13,6 +13,9 @@
 #   ORIGEN_2024  de dónde sale /2024 si todavía no existe y la raíz está vacía
 #                (.tar.gz o carpeta; por defecto epa-bienestar-mayo.tar.gz de este repo)
 #
+# Si el repo del sitio no trae algún archivo, lo completa desde
+# despliegue/complementos-2026/ (sin pisar nunca lo que venga en el repo).
+#
 # Es idempotente: /2024 se crea una sola vez y después no se toca. Cada corrida
 # vuelve a bajar el sitio actual y reemplaza la raíz (salvo /2024 y /.well-known).
 set -euo pipefail
@@ -73,6 +76,14 @@ if [[ -d "$ARCHIVO/assets/img" ]]; then
     rsync -a --ignore-existing "$ARCHIVO/assets/img"/ "$TMP/nuevo/assets/img"/
 fi
 
+# Complementos: archivos que el sitio necesita y su repo todavía no trae
+# (hoy, assets/js/epa-analytics.js). Nunca pisan lo que venga en el repo:
+# el día que el repo los incluya, gana la versión del repo.
+if [[ -d "$REPO/despliegue/complementos-2026" ]]; then
+    rsync -a --ignore-existing --out-format='  complemento: %n' \
+        "$REPO/despliegue/complementos-2026"/ "$TMP/nuevo"/ | grep -v '/$' || true
+fi
+
 # ── 3. Avisar qué referencia el sitio y no existe ───────────────────────────────────
 while IFS= read -r pagina; do
     dir="$(dirname "$pagina")"
@@ -80,7 +91,11 @@ while IFS= read -r pagina; do
         { grep -vE '^(https?:|mailto:|tel:|data:|javascript:|//)' || true; } |
         while IFS= read -r ref; do
             if [[ "$ref" == /* ]]; then f="$TMP/nuevo$ref"; else f="$dir/$ref"; fi
-            [[ -e "$f" || -e "$f.html" ]] || realpath -m --relative-to="$TMP/nuevo" "$f"
+            rel="$(realpath -m --relative-to="$TMP/nuevo" "$f")"
+            # /2024 no viene en el repo: vive en el destino.
+            [[ -e "$f" || -e "$f.html" ]] && continue
+            [[ ( "$rel" == 2024 || "$rel" == 2024/* ) && -e "$DESTINO/$rel" ]] && continue
+            echo "$rel"
         done | sort -u
 done < <(find "$TMP/nuevo" -name '*.html') | sort | uniq -c > "$TMP/faltan"
 if [[ -s "$TMP/faltan" ]]; then
