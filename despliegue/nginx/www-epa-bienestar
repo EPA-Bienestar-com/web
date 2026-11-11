@@ -7,8 +7,9 @@
 # Certbot agrega a cada bloque el `listen 443 ssl` y los certificados, y crea los
 # bloques del 80 que redirigen a HTTPS. No hace falta tocar nada después.
 #
-# El contenido (HTML estático) se publica con despliegue/publicar-sitio.sh
-# en /var/www/epa-bienestar.com.ar.
+# El contenido (HTML estático) se publica con despliegue/publicar-sitio.sh:
+#   /var/www/epa-bienestar.com.ar/        sitio actual (github.com/EPA-Developments/web)
+#   /var/www/epa-bienestar.com.ar/2024/   versión anterior, archivada
 
 # Marca «www»: el sitio en sí.
 server {
@@ -37,7 +38,30 @@ server {
     # El canonical de condiciones_del_servicio.html apunta a esta variante con errata.
     location = /condiciones_de_servicio.html { return 301 /condiciones_del_servicio.html; }
 
-    # El selector de idioma enlaza /en/ y /pt/, que todavía no existen: a la portada.
+    # Versión 2024, archivada. Se sirve igual que siempre pero fuera de los buscadores:
+    # sus canonical apuntan a otro dominio y competiría con el sitio actual.
+    # (Un add_header dentro de un location anula los del server: por eso se repiten.)
+    location ^~ /2024/ {
+        try_files $uri $uri.html $uri/ =404;
+        expires -1;
+        add_header X-Robots-Tag "noindex, follow" always;
+        add_header X-Content-Type-Options "nosniff" always;
+        add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+        add_header X-Frame-Options "SAMEORIGIN" always;
+    }
+
+    # Recursos FHIR R4 publicados (CodeSystem del Índice EPA): tipo MIME de FHIR y
+    # CORS abierto para que servidores y validadores puedan leerlos.
+    location ^~ /fhir/ {
+        types { application/fhir+json json; }
+        charset_types application/fhir+json;
+        add_header Access-Control-Allow-Origin "*" always;
+        add_header X-Content-Type-Options "nosniff" always;
+        add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+        try_files $uri =404;
+    }
+
+    # El selector de idioma de la versión 2024 enlaza /en/ y /pt/, que todavía no existen: a la portada.
     # 302 (temporal) para que no quede cacheado el día que se publiquen.
     location ~ ^/(en|pt)(/.*)?$ { return 302 /; }
 
@@ -58,7 +82,7 @@ server {
     gzip on;
     gzip_vary on;
     gzip_min_length 1024;
-    gzip_types text/css application/javascript application/json image/svg+xml text/plain text/xml;
+    gzip_types text/css application/javascript application/json application/fhir+json image/svg+xml text/plain text/xml application/xml;
 
     add_header X-Content-Type-Options "nosniff" always;
     add_header Referrer-Policy "strict-origin-when-cross-origin" always;
