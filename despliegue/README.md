@@ -155,7 +155,7 @@ En la propiedad `G-5J3NZ57F9D`:
 
 ### 4. Imágenes que faltan
 
-`publicar-sitio.sh` avisa al final. Hoy solo `assets/img/8pasos_AHA.jpg` (home). Si el sitio publicado hoy la tiene, salen de `/2024/assets/img`.
+`publicar-sitio.sh` avisa al final. Hoy solo `assets/img/8pasos_AHA.jpg` (home). Si el sitio publicado hoy la tiene, sale de `/2024/assets/img`.
 Si no, hay que subirlos al repo del sitio.
 
 ### 5. Publicar y verificar
