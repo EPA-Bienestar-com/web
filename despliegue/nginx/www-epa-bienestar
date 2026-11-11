@@ -1,0 +1,82 @@
+# Sitio institucional de EPA Bienestar: www.epa-bienestar.com.ar (canónico) y epa-bienestar.com.ar.
+# Va en /etc/nginx/sites-available/www-epa-bienestar, con symlink en sites-enabled/.
+#
+# Está escrito «antes de Certbot», igual que nacieron info-biowellness e info-pb100d:
+# solo escucha en el 80. Al correr
+#     certbot --nginx -d www.epa-bienestar.com.ar -d epa-bienestar.com.ar
+# Certbot agrega a cada bloque el `listen 443 ssl` y los certificados, y crea los
+# bloques del 80 que redirigen a HTTPS. No hace falta tocar nada después.
+#
+# El contenido (HTML estático) se publica con despliegue/publicar-sitio.sh
+# en /var/www/epa-bienestar.com.ar.
+
+# Marca «www»: el sitio en sí.
+server {
+    listen 80;
+    listen [::]:80;
+    server_name www.epa-bienestar.com.ar;
+
+    root /var/www/epa-bienestar.com.ar;
+    index index.html;
+    charset utf-8;
+    absolute_redirect off;   # redirecciones internas relativas: conservan https
+
+    # Nada de .git, .env, .htaccess ni respaldos (politica_de_privacidad.html.bak_USA).
+    # Se deja pasar /.well-known/, que Certbot necesita para renovar.
+    location ~ /\.(?!well-known/) { return 404; }
+    location ~ \.(bak|bak_[A-Za-z0-9]+|orig|swp|old|tar\.gz|zip)$ { return 404; }
+
+    # La evaluación inicial y los turnos viven en el hub de info; allá se resuelve
+    # el resto de la redirección (→ /donde-hacerlo/).
+    location ~ ^/(evaluacion-inicial|turnos)(\.php)?/?$ {
+        return 301 https://info.epa-bienestar.com.ar/donde-hacerlo/;
+    }
+    # El sitio es estático: cualquier otro .php no existe.
+    location ~ \.php$ { return 404; }
+
+    # El canonical de condiciones_del_servicio.html apunta a esta variante con errata.
+    location = /condiciones_de_servicio.html { return 301 /condiciones_del_servicio.html; }
+
+    # El selector de idioma enlaza /en/ y /pt/, que todavía no existen: a la portada.
+    # 302 (temporal) para que no quede cacheado el día que se publiquen.
+    location ~ ^/(en|pt)(/.*)?$ { return 302 /; }
+
+    # Estáticos: caché larga en el navegador. Se usa `expires` y no `add_header`:
+    # un add_header dentro de un location anula los encabezados de seguridad del server.
+    location ~* \.(?:css|js|png|jpe?g|gif|webp|avif|svg|ico|woff2?|ttf|eot)$ {
+        try_files $uri =404;
+        expires 30d;
+        access_log off;
+    }
+
+    # Páginas: con o sin .html (/roadmap y /roadmap.html sirven lo mismo).
+    location / {
+        try_files $uri $uri.html $uri/ =404;
+        expires -1;
+    }
+
+    gzip on;
+    gzip_vary on;
+    gzip_min_length 1024;
+    gzip_types text/css application/javascript application/json image/svg+xml text/plain text/xml;
+
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+    add_header X-Frame-Options "SAMEORIGIN" always;
+}
+
+# Dominio sin www: todo a www, salvo el desafío de Let's Encrypt.
+server {
+    listen 80;
+    listen [::]:80;
+    server_name epa-bienestar.com.ar;
+
+    location ^~ /.well-known/acme-challenge/ {
+        root /var/www/epa-bienestar.com.ar;
+        default_type text/plain;
+    }
+
+    location / {
+        return 301 https://www.epa-bienestar.com.ar$request_uri;
+    }
+}
