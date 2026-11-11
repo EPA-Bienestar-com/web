@@ -70,18 +70,18 @@ echo "  commit $(git -C "$TMP/repo" log -1 --format='%h %ad %s' --date=short)"
 mkdir -p "$TMP/nuevo"
 rsync -a "${EXCLUIR[@]}" "$TMP/repo"/ "$TMP/nuevo"/
 
-# El repo no trae las imágenes (LEEME.md: «copiá tu carpeta assets/img/ actual»).
-# Se completan con las de la versión archivada, sin pisar las que sí vengan en el repo.
-if [[ -d "$ARCHIVO/assets/img" ]]; then
-    rsync -a --ignore-existing "$ARCHIVO/assets/img"/ "$TMP/nuevo/assets/img"/
-fi
-
 # Complementos: archivos que el sitio necesita y su repo todavía no trae
-# (hoy, assets/js/epa-analytics.js). Nunca pisan lo que venga en el repo:
-# el día que el repo los incluya, gana la versión del repo.
+# (epa-analytics.js, logo). Prioridad: repo > complementos > imágenes de /2024.
+# Nunca pisan lo que venga en el repo: el día que el repo los incluya, gana el repo.
 if [[ -d "$REPO/despliegue/complementos-2026" ]]; then
     rsync -a --ignore-existing --out-format='  complemento: %n' \
         "$REPO/despliegue/complementos-2026"/ "$TMP/nuevo"/ | grep -v '/$' || true
+fi
+
+# El repo no trae las imágenes (LEEME.md: «copiá tu carpeta assets/img/ actual»).
+# Se completan con las de la versión archivada, sin pisar las del repo ni los complementos.
+if [[ -d "$ARCHIVO/assets/img" ]]; then
+    rsync -a --ignore-existing "$ARCHIVO/assets/img"/ "$TMP/nuevo/assets/img"/
 fi
 
 # ── 3. Avisar qué referencia el sitio y no existe ───────────────────────────────────

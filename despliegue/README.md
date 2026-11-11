@@ -117,9 +117,12 @@ git am ~/epa-web/despliegue/parches/*.patch && git push
 |---|---|
 | `0001-Footer-…` | Enlace «Versión 2024» en el footer de las 15 páginas (y en `build.py`) |
 | `0002-Agregar-assets-js-epa-analytics.js-…` | **El archivo que faltaba.** Las 14 páginas cargan `gtag.js`, pero el `gtag('config', 'G-5J3NZ57F9D')` vive en este archivo: sin él, GA4 no registra ni una visita |
+| `0003-Logo-piedras-con-EPA-abajo` | Logo nuevo (piedras + «EPA»): `logo.svg`, `logo.png`, `favicon.ico`, y el CSS para mostrarlo a 46 px de alto (antes 32×32, donde «EPA» no se lee) |
 
-Mientras el parche 0002 no esté en el repo, `publicar-sitio.sh` publica la misma copia
-desde `complementos-2026/`. Cuando el repo lo incluya, gana la versión del repo.
+Mientras los parches no estén en el repo, `publicar-sitio.sh` publica `epa-analytics.js`
+y el logo desde `complementos-2026/`. Cuando el repo los incluya, gana la versión del repo.
+Ojo: el tamaño del logo (46 px) es CSS del repo, así que hasta aplicar 0003 el logo nuevo
+se ve a 32×32.
 
 ### 2. Que `info.` no pierda el origen del clic
 
@@ -152,8 +155,7 @@ En la propiedad `G-5J3NZ57F9D`:
 
 ### 4. Imágenes que faltan
 
-`publicar-sitio.sh` avisa al final. Hoy: `assets/img/8pasos_AHA.jpg` (home) y
-`assets/img/favicon.ico`. Si el sitio publicado hoy los tiene, salen de `/2024/assets/img`.
+`publicar-sitio.sh` avisa al final. Hoy solo `assets/img/8pasos_AHA.jpg` (home). Si el sitio publicado hoy la tiene, salen de `/2024/assets/img`.
 Si no, hay que subirlos al repo del sitio.
 
 ### 5. Publicar y verificar
